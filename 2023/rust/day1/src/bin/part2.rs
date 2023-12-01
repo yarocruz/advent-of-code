@@ -1,7 +1,7 @@
 fn main() {
-    let input = include_str!("input1.txt");
-    let output = part2(input);
-    dbg!(output);
+    // let input = include_str!("./input.txt");
+    // let output = part2(input);
+    // dbg!(output);
 }
 
 fn part2(input: &str) -> String {
