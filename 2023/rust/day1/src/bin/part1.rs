@@ -42,11 +42,7 @@ fn part1(input: &str) -> String {
         c_values.push(digits);
 
     }
-        // do two loops - one from the beginning and one from the end
-            // if char contains 0-9 we push that into a string
-            // if char (when in reverse) contains 0-9 we concat that into the prev string
-        // push that into a new array
-        // sum them all
+        
      let result = c_values
         .iter()
         .map(|item| {
