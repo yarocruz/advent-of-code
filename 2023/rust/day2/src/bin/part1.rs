@@ -39,9 +39,7 @@ fn part1(input: &str) -> String {
                 .trim()
                 .split(" ")
                 .collect::<Vec<_>>();
-
-            println!("Set {:?}", set);
-
+        
             let mut color_index = 1; 
 
             for j in 0..set.len() {
@@ -63,16 +61,8 @@ fn part1(input: &str) -> String {
                 } 
                 
             }
-            println!("red:{} blue:{} green:{}", red, blue, green);
-
-            
         }
 
-        //println!("Color counts blue: {} red: {} gree: {}", blue, red, green);
-        
-        //color_index = 1;
-
-        // if they are all less than the constant than they are a possible game
         if is_possible {
             let game_id = game[0]
                 .split(" ")
@@ -99,6 +89,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
     #[test]
     fn it_works() {
         let result = part1(INPUT);
-        assert_eq!(result, "9");
+        assert_eq!(result, "8");
     }
 }
