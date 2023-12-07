@@ -129,15 +129,10 @@ fn part1(input: &str) -> String {
     // and if we haven't seen this position before
     // then multiply the two numbers together and add it to the total
 
-    let mut seen_positions: Vec<(usize, usize)> = Vec::new();
-
     for gear_position in &gear_positions {
         let current_position = gear_position.position;
         if gear_position.adjascent_part_number.len() == 2 {
-            if !seen_positions.contains(&current_position) {
-                total += gear_position.adjascent_part_number[0] * gear_position.adjascent_part_number[1];
-                seen_positions.push(current_position);
-            }
+            total += gear_position.adjascent_part_number[0] * gear_position.adjascent_part_number[1];
         }
     }
 
