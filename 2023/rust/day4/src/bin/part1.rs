@@ -35,9 +35,6 @@ fn part1(input: &str) -> String {
     }
 
 
-    println!("Winning Numbers{:?}", winning_numbers);
-    println!("Numbers you have{:?}", numbers_you_have);
-
     // loop over the numbers you have and check if they are in the winning numbers
     for (i, numbers) in numbers_you_have.iter().enumerate() {
         let mut card_score: usize = 0;
