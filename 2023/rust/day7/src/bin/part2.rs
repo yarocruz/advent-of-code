@@ -74,17 +74,31 @@ fn hand_type(hand: &str) -> i32 {
     let mut counts = HashMap::new();
   
     for c in hand.chars().take(5) {
-        // the j now is a wild card
-        // we will count j as whatever the majority of cards are in the hand
-        // to get the best possible hand
-        // for example the hand T55J5 will be counted as 55555
-        // which will be 4 of a kind
-        for c in hand.chars().take(5) {
-            *counts.entry(c).or_insert(0) += 1;
-        }
-
+        *counts.entry(c).or_insert(0) += 1;
     }
 
+     // iterate through the counts hashmap and check if there is a j key
+    // if there is a j, add the value of the j to the highest counted key
+    // and remove the joker from the counts 
+    // for example the hashmap {'T': 1, 'J': 1, '5': 3} would become {'T': 1, '5': 4}
+
+    // check if all the keys in the hashmap are all jokers
+     if !counts.keys().all(|k| *k == 'J') {
+        if counts.contains_key(&'J') {
+            let joker_count = counts[&'J'];
+    
+            // let highest_count = counts.values().max().unwrap();
+            // let highest_key = counts.iter().find(|(_, v)| *v == highest_count).unwrap().0;
+    
+            // get highest count but exclude the j card
+            let highest_count = counts.iter().filter(|(k, _)| **k != 'J').max_by_key(|(_, v)| *v).unwrap().1;
+            let highest_key = counts.iter().filter(|(k, _)| **k != 'J').max_by_key(|(_, v)| *v).unwrap().0;
+    
+            counts.insert(*highest_key, highest_count + joker_count);
+            counts.remove(&'J');
+        }
+     }
+    
     match counts.values().collect::<Vec<&i32>>()[..] {
         [5] => 1,
         [1, 4] | [4, 1] => 2,
