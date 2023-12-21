@@ -52,7 +52,7 @@ fn part1(input: &str) -> String {
         let mut count = 0;
         let max_iterations = 100000; // Prevents infinite loop
         
-        while current != "ZZZ" && count < max_iterations {
+        while current != "ZZZ" {
             for direction in directions.chars() {
                 println!("direction: {}", direction);
                 let next_node = match direction {

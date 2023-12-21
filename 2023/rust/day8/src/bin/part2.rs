@@ -50,7 +50,7 @@ fn part1(input: &str) -> String {
 
         
         let mut count = 0;
-        let max_iterations = 10; // Prevents infinite loop
+        let max_iterations = 100000; // Prevents infinite loop
 
         // find all the nodes that end with A and save them in a vector
         let mut nodes_ending_with_a = nodes
@@ -61,73 +61,53 @@ fn part1(input: &str) -> String {
 
         println!("nodes_ending_with_a: {}", nodes_ending_with_a.len());
 
-        let mut current1 = &nodes_ending_with_a[0];
-        let mut current2 = &nodes_ending_with_a[1];
-        let mut current3 = &nodes_ending_with_a[2];
-        let mut current4 = &nodes_ending_with_a[3];
-        let mut current5 = &nodes_ending_with_a[4];
-        let mut current6 = &nodes_ending_with_a[5];
+        // save all the nodes that end with a in a vector of &str
+        let mut current_nodes = nodes_ending_with_a
+            .iter()
+            .map(|node| node.as_str())
+            .collect::<Vec<&str>>();
+
+        println!("current_nodes: {:?}", current_nodes);
+
+        // answer 12737 is too low
+
+        let mut visited = std::collections::HashSet::new();
+        //visited.insert(current_nodes.clone());
         
-        while current1.ends_with("Z") == false || current2.ends_with("Z") == false
-            || current3.ends_with("Z") == false || current4.ends_with("Z") == false
-            || current5.ends_with("Z") == false || current6.ends_with("Z") == false {
+        'outer: while current_nodes.iter().any(|&node| !node.ends_with("Z")) {
+            
             for direction in directions.chars() {
-                println!("direction: {}", direction);
-                let next_node = match direction {
-                    'L' => &nodes.get(current1).unwrap()[0],
-                    'R' => &nodes.get(current1).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
-                let next_node1 = match direction {
-                    'L' => &nodes.get(current2).unwrap()[0],
-                    'R' => &nodes.get(current2).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
-                let next_node2 = match direction {
-                    'L' => &nodes.get(current3).unwrap()[0],
-                    'R' => &nodes.get(current3).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
-                let next_node3 = match direction {
-                    'L' => &nodes.get(current4).unwrap()[0],
-                    'R' => &nodes.get(current4).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
-                let next_node4 = match direction {
-                    'L' => &nodes.get(current5).unwrap()[0],
-                    'R' => &nodes.get(current5).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
-                let next_node5 = match direction {
-                    'L' => &nodes.get(current6).unwrap()[0],
-                    'R' => &nodes.get(current6).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
-                let next_node6 = match direction {
-                    'L' => &nodes.get(current6).unwrap()[0],
-                    'R' => &nodes.get(current6).unwrap()[1],
-                    _ => panic!("Invalid direction"),
-                };
+                for i in 0..current_nodes.len() {
+                    let current_node = current_nodes[i];
+                    let next_node = match direction {
+                        'L' => &nodes.get(current_node).unwrap()[0],
+                        'R' => &nodes.get(current_node).unwrap()[1],
+                        _ => panic!("Invalid direction"),
+                    };
         
-                current1 = next_node;
-                current2 = next_node1;
-                current3 = next_node2;
-                current4 = next_node3;
-                current5 = next_node4;
-                current6 = next_node5;
-                println!("current1: {}", current1);
-                println!("current2: {}", current2);
-                println!("current3: {}", current3);
-                println!("current4: {}", current4);
-                println!("current5: {}", current5);
-                println!("current6: {}", current6);
+                    current_nodes[i] = next_node;
+                }
+        
                 count += 1;
+                println!("Current states: {:?}", current_nodes);
+
+                if visited.contains(&current_nodes) {
+                    println!("Already visited this state, terminating");
+                    break 'outer;
+                }
+        
+                if current_nodes.iter().all(|&node| node.ends_with("Z")) {
+                    println!("All nodes end with Z, terminating");
+                    break 'outer;
+                }
+        
+                if count >= max_iterations {
+                    println!("Maximum iterations reached, terminating");
+                    break 'outer;
+                }
             }
-        
-        }
-        
-        if count >= max_iterations {
-            println!("Maximum iterations reached, terminating");
+            visited.insert(current_nodes.clone());
+            
         }
 
     println!("count: {}", count);
@@ -153,6 +133,6 @@ XXX = (XXX, XXX)";
     #[test]
     fn it_works() {
         let result = part1(INPUT1);
-        assert_eq!(result, "6");
+        assert_eq!(result, "7");
     }
 }
