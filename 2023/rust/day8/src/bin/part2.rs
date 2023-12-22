@@ -73,9 +73,12 @@ fn part1(input: &str) -> String {
 
         let mut visited = std::collections::HashSet::new();
         //visited.insert(current_nodes.clone());
+        let mut loop_count = 0;
+        let mut direction_loops = 0;
         
         'outer: while current_nodes.iter().any(|&node| !node.ends_with("Z")) {
-            
+            let state_signature = current_nodes.iter().cloned().collect::<Vec<&str>>().join(",");
+    
             for direction in directions.chars() {
                 for i in 0..current_nodes.len() {
                     let current_node = current_nodes[i];
@@ -86,15 +89,22 @@ fn part1(input: &str) -> String {
                     };
         
                     current_nodes[i] = next_node;
+                    
                 }
         
                 count += 1;
                 println!("Current states: {:?}", current_nodes);
 
-                if visited.contains(&current_nodes) {
-                    println!("Already visited this state, terminating");
-                    break 'outer;
-                }
+                
+                // if visited.contains(&current_nodes) {
+                //     println!("Already visited this state, terminating");
+                //     break 'outer;
+                // }
+
+                // Update the state_signature after updating current_nodes
+                let new_state_signature = current_nodes.iter().cloned().collect::<Vec<&str>>().join(",");
+                visited.insert(new_state_signature);
+                loop_count += 1;
         
                 if current_nodes.iter().all(|&node| node.ends_with("Z")) {
                     println!("All nodes end with Z, terminating");
@@ -105,8 +115,14 @@ fn part1(input: &str) -> String {
                     println!("Maximum iterations reached, terminating");
                     break 'outer;
                 }
+                direction_loops += 1;
             }
-            visited.insert(current_nodes.clone());
+
+            if !visited.insert(state_signature.clone()) {
+                println!("Loop detected at state: {}", state_signature);
+                continue;
+            }
+            //visited.insert(current_nodes.clone());
             
         }
 
