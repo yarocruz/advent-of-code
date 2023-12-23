@@ -129,6 +129,6 @@ mod tests {
     #[test]
     fn it_works() {
         let result = part1(INPUT);
-        assert_eq!(result, "113");
+        assert_eq!(result, "114");
     } 
 }
