@@ -8,6 +8,9 @@ fn main() {
 fn part1(input: &str) -> String {
     let field = convert_input(input);
     println!("{:?}", field);
+
+    let start_position = find_start(&field);
+    println!("{:?}", start_position);
     
     "result".to_string()
 }
@@ -19,6 +22,17 @@ fn convert_input(input: &str) -> Vec<Vec<String>> {
         .collect::<Vec<Vec<String>>>();
 
     field
+}
+fn find_start(field: &Vec<Vec<String>>) -> (usize, usize) {
+    let mut result = (0, 0); 
+    for row in 0..field.len() {
+        for col in 0..field[row].len() {
+            if field[row][col] == "S" {
+                result = (row, col);
+            }
+        }
+    }
+    result
 }
 
 #[cfg(test)]
