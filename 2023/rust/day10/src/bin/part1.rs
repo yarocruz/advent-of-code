@@ -1,4 +1,5 @@
 use std::fs;
+use std::collections::HashSet;
 
 fn main() {
     let file = fs::read_to_string("./input.txt").unwrap();
@@ -7,10 +8,43 @@ fn main() {
 
 fn part1(input: &str) -> String {
     let field = convert_input(input);
-    println!("{:?}", field);
 
     let start_position = find_start(&field);
-    println!("{:?}", start_position);
+    /* From the start position look up, down, left, and or right
+       and check to see if it's the appropriate pipe, keep a count
+       variable that will count, a visited hash as well. once we finish
+       going around a loop, we return the count
+     */
+    let mut current_position = start_position;
+    // let's keep track of the visited positions
+    let mut visited = HashSet::new();
+    visited.insert(current_position);
+
+    loop {
+        // field[current_position.0][current_position.1 + 1]; // right
+        // field[current_position.0][current_position.1 - 1]; // left
+        // field[current_position.0 + 1][current_position.1]; // down
+        // field[current_position.0 - 1][current_position.1 + 1]; // up
+
+        // check for out of bounds
+        if current_position.1 < field[0].len() - 1 { // check right
+            
+        }
+        if current_position.1 > 0 { // check left
+
+        }
+        if current_position.0 > 0 { // look up
+
+        }
+        if current_position.0 < field.len() - 1 { // look down
+
+        }
+
+    }
+
+    
+
+
     
     "result".to_string()
 }
