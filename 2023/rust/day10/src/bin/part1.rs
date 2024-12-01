@@ -21,30 +21,25 @@ fn part1(input: &str) -> String {
     visited.insert(current_position);
 
     loop {
-        // field[current_position.0][current_position.1 + 1]; // right
-        // field[current_position.0][current_position.1 - 1]; // left
-        // field[current_position.0 + 1][current_position.1]; // down
-        // field[current_position.0 - 1][current_position.1 + 1]; // up
+        let (row, col) = current_position;
+        let current = &field[row][col];
+        let next = match current.as_str() {
+            "S" => (row + 1, col),
+            "L" => (row, col + 1),
+            "J" => (row, col - 1),
+            "-" => (row, col + 1),
+            "|" => (row + 1, col),
+            "+" => (row + 1, col),
+            _ => break,
+        };
 
-        // check for out of bounds
-        if current_position.1 < field[0].len() - 1 { // check right
-            
-        }
-        if current_position.1 > 0 { // check left
-
-        }
-        if current_position.0 > 0 { // look up
-
-        }
-        if current_position.0 < field.len() - 1 { // look down
-
+        if visited.contains(&next) {
+            break;
         }
 
+        visited.insert(next);
+        current_position = next;
     }
-
-    
-
-
     
     "result".to_string()
 }
@@ -57,6 +52,7 @@ fn convert_input(input: &str) -> Vec<Vec<String>> {
 
     field
 }
+
 fn find_start(field: &Vec<Vec<String>>) -> (usize, usize) {
     let mut result = (0, 0); 
     for row in 0..field.len() {
