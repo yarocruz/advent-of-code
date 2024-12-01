@@ -11,7 +11,7 @@ def solve(input_srt):
         left_list.append(int(temp[0]))
         right_list.append(int(temp[1]))
 
-    # let's do brute force here because can think of 
+    # let's do brute force here because can't think of 
     # a way to not do double loop
     for i in range(len(left_list)):
         count = 0
