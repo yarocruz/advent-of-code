@@ -12,9 +12,8 @@ def solve(input_srt):
     # if we can of course
 
     result = count_word_instances(grid, word)
-    print(result)
 
-    return str("")
+    return str(result)
 
 def count_word_instances(grid, word):
     count = 0
@@ -24,5 +23,24 @@ def count_word_instances(grid, word):
         row_str = ''.join(row)
         count += row_str.count(word)
         count += row_str[::-1].count(word)
+
+    # loop on cols by Transposing: top-bottom, bottom-right
+    for col in grid.T:
+        col_str = ''.join(col)
+        count += col_str.count(word)
+        count += col_str[::-1].count(word)
+
+    # loop diag, top-left-bot-right, vice versa
+    for offset in range(-grid.shape[0] + 1, grid.shape[1]):
+        diag_str = ''.join(grid.diagonal(offset))
+        count += diag_str.count(word)
+        count += diag_str[::-1].count(word)
+
+    # # loop "anti-diag", top-left-bot-right, vice versa
+    flipped_grid = np.fliplr(grid)
+    for offset in range(-flipped_grid.shape[0] + 1, flipped_grid.shape[1]):
+        diag_str = ''.join(flipped_grid.diagonal(offset))
+        count += diag_str.count(word)
+        count += diag_str[::-1].count(word)
     
     return count
