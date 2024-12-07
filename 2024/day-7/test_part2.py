@@ -1,5 +1,5 @@
 import unittest
-from part1 import solve
+from part2 import solve
 
 class TestPart1(unittest.TestCase):
     def test_sample_input(self):
@@ -14,7 +14,7 @@ class TestPart1(unittest.TestCase):
 292: 11 6 16 20
 """
         result = solve(INPUT)
-        self.assertEqual(result, "3749")
+        self.assertEqual(result, "11387")
 
 if __name__ == "__main__":
     unittest.main()
