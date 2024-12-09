@@ -6,6 +6,7 @@ def solve(input_srt):
   ids = []
   id = 0
 
+  # create the id list
   for i, val in enumerate(disk_map):
     print(i, val)
     
@@ -17,6 +18,14 @@ def solve(input_srt):
     else:
       for _ in range(int(val)):
         ids.append('.')
+
+  # start from the end
+  for end_idx, id in enumerate(ids[::-1]):
+    idx = ids.index('.')
+    print(idx)
+    # swap
+    ids[idx] = id
+    ids[end_idx] = '.'
 
   print(ids)
     
