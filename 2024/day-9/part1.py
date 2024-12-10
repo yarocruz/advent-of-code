@@ -1,5 +1,4 @@
-import numpy as np
-from itertools import combinations
+
 
 def solve(input_srt):
   disk_map = input_srt
@@ -8,7 +7,6 @@ def solve(input_srt):
 
   # create the id list
   for i, val in enumerate(disk_map):
-    print(i, val)
     
     # if we are at even idx number
     if i % 2 == 0:
@@ -19,14 +17,24 @@ def solve(input_srt):
       for _ in range(int(val)):
         ids.append('.')
 
-  # start from the end
-  for end_idx, id in enumerate(ids[::-1]):
-    idx = ids.index('.')
-    print(idx)
-    # swap
-    ids[idx] = id
-    ids[end_idx] = '.'
+  print(ids)
+  pointer = 0
+  # # build the new order start from the end
+  for _, id in enumerate(ids[::-1]):
+    while pointer < len(ids) - 1:
+      if ids[pointer] == '.':
+        ids[pointer] = id
+        
+        ids.pop()
+        break
+      pointer += 1
 
   print(ids)
+  # do the checksum
+  result = 0
+  for idx, id in enumerate(ids):
+    result += idx * id  
+
+  print(result)
     
-  return str("")
+  return str(result)
