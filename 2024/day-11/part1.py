@@ -24,20 +24,11 @@ def solve(input_srt):
     
   return str("")
 
-def split_in_half(str):
-  mid_point = len(str) // 2
-  print(mid_point)
-  left = str[:mid_point]
-  right = str[mid_point:]
+def split_in_half(stone):
+  mid_point = len(stone) // 2
+  #print(mid_point)
+  left = stone[:mid_point]
+  right = stone[mid_point:]
 
-  return [remove_leading_zeroes(left), remove_leading_zeroes(right)]
-  
-
-def remove_leading_zeroes(str):
-  new_str = ""
-  for c in str:
-    if c != '0':
-      new_str += c
-
-  return new_str
+  return [str(int(left)), str(int(right))]
 
