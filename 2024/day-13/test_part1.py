@@ -19,7 +19,7 @@ Button A: X+69, Y+23
 Button B: X+27, Y+71
 Prize: X=18641, Y=10279"""
         result = solve(INPUT)
-        self.assertEqual(result, "140")
+        self.assertEqual(result, "480")
 
 if __name__ == "__main__":
     unittest.main()

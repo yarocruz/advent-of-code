@@ -1,5 +1,5 @@
 import unittest
-from part1 import solve
+from part2 import solve
 
 class TestPart1(unittest.TestCase):
     def test_sample_input(self):
