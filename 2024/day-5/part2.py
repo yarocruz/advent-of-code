@@ -74,6 +74,7 @@ def solve(input_srt):
 
         #Topological sort the pages 
         correct_order = topological_sort(pages_in_update, edges)
+        print("Correct", correct_order)
         fixed_invalid_orders.append(correct_order)
     
     # loop through valid orders, find the middle, assuming that each
