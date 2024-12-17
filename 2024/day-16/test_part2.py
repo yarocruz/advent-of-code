@@ -19,7 +19,7 @@ class TestPart1(unittest.TestCase):
 #S..#.....#...#
 ###############"""
         result = solve(INPUT)
-        self.assertEqual(result, "7036")
+        self.assertEqual(result, "45")
 
 if __name__ == "__main__":
     unittest.main()

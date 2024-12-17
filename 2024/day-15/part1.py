@@ -44,9 +44,16 @@ def solve(input_srt):
             nx, ny = temp
             warehouse[nx, ny] = '.' 
 
-        print(warehouse)
+    print(warehouse)
 
-    return str("")
+    # get all box positions
+    box_positions = np.argwhere(warehouse == 'O')
+    total = 0
+    for box_pos in box_positions:
+        total += 100 * box_pos[0] + box_pos[1]
+
+    print(total)
+    return str(total)
 
 # we need a function that will check if a box is movable
 # depending on the direction that it's going
